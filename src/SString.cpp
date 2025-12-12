@@ -1,0 +1,63 @@
+#include "../inc/SString.h"
+#include <string.h>
+
+
+SString::SString(const char* str)
+{
+    buffLenth = strlen(str)*2;
+    //buff = new char[buffLenth];
+    buff = std::make_unique<char[]>(buffLenth);
+    strcpy(buff.get(),str);
+    
+}
+
+SString::~SString() = default;
+
+char* SString::data()
+{
+    return buff.get();
+}
+
+void SString::append(const char* str)
+{
+    size_t currentLen = strlen(buff.get());
+    size_t appendLen = strlen(str);
+    size_t neededLen = currentLen + appendLen + 1; // +1 for null terminator
+    
+    if (neededLen > buffLenth) {
+        size_t newBuffLenth = neededLen>(buffLenth * 2) ? neededLen:buffLenth*2;
+        auto newBuff = std::make_unique<char[]>(newBuffLenth);
+        
+        strcpy(newBuff.get(), buff.get());
+        
+        buff = std::move(newBuff);
+        buffLenth = newBuffLenth;
+    }
+    
+    strcat(buff.get(), str);
+}
+
+void SString::append(const SString& str)
+{
+    size_t currentLen = strlen(buff.get());
+    size_t appendLen = strlen(str.buff.get());
+    size_t neededLen = currentLen + appendLen + 1;
+
+    if (neededLen > buffLenth) {
+        size_t newBuffLenth = neededLen>(buffLenth * 2) ? neededLen:buffLenth*2;
+        auto newBuff = std::make_unique<char[]>(newBuffLenth);
+        
+        strcpy(newBuff.get(), buff.get());
+        
+        buff = std::move(newBuff);
+        buffLenth = newBuffLenth;
+    }
+    strcat(buff.get(), str.buff.get());
+}
+
+char SString::mid(int locat)
+{
+    if(locat > strlen(data()))
+        return 0;
+    return buff[locat];
+}
