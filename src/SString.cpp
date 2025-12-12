@@ -1,7 +1,6 @@
 #include "../inc/SString.h"
 #include <string.h>
 
-
 SString::SString(const char* str)
 {
     buffLenth = strlen(str)*2;
@@ -28,13 +27,13 @@ void SString::append(const char* str)
         size_t newBuffLenth = neededLen>(buffLenth * 2) ? neededLen:buffLenth*2;
         auto newBuff = std::make_unique<char[]>(newBuffLenth);
         
-        strcpy(newBuff.get(), buff.get());
+        strcpy_s(newBuff.get(),neededLen,buff.get());
         
         buff = std::move(newBuff);
         buffLenth = newBuffLenth;
     }
     
-    strcat(buff.get(), str);
+    strcat_s(buff.get(),neededLen,str);
 }
 
 void SString::append(const SString& str)
@@ -47,12 +46,12 @@ void SString::append(const SString& str)
         size_t newBuffLenth = neededLen>(buffLenth * 2) ? neededLen:buffLenth*2;
         auto newBuff = std::make_unique<char[]>(newBuffLenth);
         
-        strcpy(newBuff.get(), buff.get());
+        strcpy_s(newBuff.get(),neededLen, buff.get());
         
         buff = std::move(newBuff);
         buffLenth = newBuffLenth;
     }
-    strcat(buff.get(), str.buff.get());
+    strcat_s(buff.get(),neededLen, str.buff.get());
 }
 
 char SString::mid(int locat)

@@ -35,7 +35,7 @@ public:
     *Get a data that type of char in a location
     */
    virtual char mid(int locat);
-//变量
+
 public:
     
 private:
