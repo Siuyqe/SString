@@ -1,7 +1,15 @@
 #ifndef SSTRING_H
 #define SSTRING_H
 #include <memory>
-
+/**
+ * @file SString.h
+ * @author siuyqe \n\n
+ * Github : https://github.com/siuyqe \n
+ * @brief the SString
+ * @copyright The CSerialPort is Copyright (C) 2025 siuyqe <siuyqe@qq.com>. \n
+ * You may use, copy, modify, and distribute the SString, under the terms \n
+ * of the LICENSE file.
+ */
 class SString
 {
  /*! Functions,
