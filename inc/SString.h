@@ -32,9 +32,11 @@ public:
     void append(const SString& str);
 
     /*!
-    *Get a data that type of char in a location
+    *Get a substring starting from a position.
     */
-   virtual char mid(int locat);
+    char* mid(int pos);
+
+    char* mid(int pos,int len);
 
 public:
     

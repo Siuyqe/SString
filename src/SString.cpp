@@ -54,9 +54,15 @@ void SString::append(const SString& str)
     strcat_s(buff.get(),neededLen, str.buff.get());
 }
 
-char SString::mid(int locat)
+char* SString::mid(int pos)
 {
-    if(locat > strlen(data()))
+    if(pos > strlen(data()))
         return 0;
-    return buff[locat];
+
+    std::unique_ptr<char[]>changeBuff = std::make_unique<char[]>(buffLenth);
+
+    strcpy_s(changeBuff.get(),buffLenth,buff.get());
+    strcpy_s(buff.get(),buffLenth-pos,changeBuff.get()+pos);
+    
+    return buff.get();
 }
