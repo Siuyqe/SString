@@ -59,10 +59,25 @@ char* SString::mid(int pos)
     if(pos > strlen(data()))
         return 0;
 
-    std::unique_ptr<char[]>changeBuff = std::make_unique<char[]>(buffLenth);
+    errno_t error;
+    error = memmove_s(buff.get(), strlen(buff.get()),buff.get() + pos, strlen(buff.get())-pos+1);
+    if(error == ERANGE)
+        return 0;
 
-    strcpy_s(changeBuff.get(),buffLenth,buff.get());
-    strcpy_s(buff.get(),buffLenth-pos,changeBuff.get()+pos);
-    
     return buff.get();
+}
+
+char* SString::mid(int pos,int len)
+{
+    if(pos > strlen(data()))
+        return 0;
+
+    errno_t error;
+    error = memmove_s(buff.get(), strlen(buff.get()),buff.get() + pos, len);
+    if((error == ERANGE)||(error == EOVERFLOW))
+        return 0;
+
+    memset(buff.get()+len,0,buffLenth-len);
+    return buff.get();
+
 }

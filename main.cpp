@@ -12,6 +12,6 @@ int main()
     str.append("d123jdoqdhqohodq");
     str.append(str1);
 
-    std::cout<<str.mid(11)<<std::endl;
+    std::cout<<str.mid(11,3)<<std::endl;
     return 0;
 }
